@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,9 +16,9 @@ const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 
 
-export default class Home extends React.Component {
+const Home = () => {
 
-  _onHomePress = () => {
+  const onHomePress = () => {
     Alert.alert(
       "Hola",
       "Ya te encuentras ahí",
@@ -28,42 +28,40 @@ export default class Home extends React.Component {
     );
   }
 
-
-  render(){
-    return( 
-    <SafeAreaView style={{flex:1}}>
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
-        style={{height}}
-        source={require('../assets/images/fondo6.jpg')}
+        style={{ height }}
+        source={require('../assets/images/background.jpg')}
       >
-        <View style={{flexDirection:'column', height, justifyContent:'center'}}>
-          <View style={{flexDirection:'row'}}>   
-            <TouchableOpacity 
-              onPress={()=>this._onHomePress()}
-              style={[styles.button, { backgroundColor:'rgba(60, 179, 113, 0.5)' }]}
+        <View style={{ flexDirection: 'column', height, justifyContent: 'center' }}>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              onPress={() => onHomePress()}
+              style={styles.button}
             >
               <Text style={styles.text}>
-                Principal
+                Home
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(238, 0, 238, 0.5)' }]}>
+            <TouchableOpacity style={styles.button}>
               <Text style={styles.text}>
-                Perfil
+                Profile
               </Text>
             </TouchableOpacity>
           </View>
 
-          <View style={{flexDirection:'row', }}>
-            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(255, 165, 0, 0.5)' }]}>
+          <View style={{ flexDirection: 'row', }}>
+            <TouchableOpacity style={styles.button}>
               <Text style={styles.text}>
-                Posteos
+                Posts
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(0, 165, 188, 0.8)' }]}>
+            <TouchableOpacity style={styles.button}>
               <Text style={styles.text}>
-                Mapa
+                Map
               </Text>
             </TouchableOpacity>
           </View>
@@ -71,23 +69,25 @@ export default class Home extends React.Component {
 
       </ImageBackground>
     </SafeAreaView>
-    )}
+  )
 }
+
+export default Home;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize:30, 
-    fontWeight:'bold', 
-    color:'#fff',
-    textAlign:'center'
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center'
   },
   button: {
-    margin: width/20,
-    height:width/2.5,
-    width:width/2.5,
-    borderRadius:15,
-    justifyContent:'center',
-    backgroundColor:'#fff',
-    zIndex:1
+    margin: width / 20,
+    height: width / 2.5,
+    width: width / 2.5,
+    borderRadius: 15,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(28, 89, 96, .7)',
+    zIndex: 1
   }
 })
