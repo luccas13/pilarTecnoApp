@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   Dimensions,
-  StatusBar,
   StyleSheet,
   Text,
   ImageBackground,
@@ -12,18 +10,16 @@ import {
   Alert
 } from 'react-native';
 
-const height = Dimensions.get('window').height
-const width = Dimensions.get('window').width
+const { height, width } = Dimensions.get('window');
 
-
-const Home = () => {
+const Home = (props) => {
 
   const onHomePress = () => {
     Alert.alert(
-      "Hola",
-      "Ya te encuentras ahí",
+      "Hi!!",
+      "You are here already",
       [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "Ok", onPress: () => console.log("OK Pressed") }
       ]
     );
   }
@@ -45,7 +41,10 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={() => props.navigation.navigate('Profile')}
+              >
               <Text style={styles.text}>
                 Profile
               </Text>
@@ -53,13 +52,19 @@ const Home = () => {
           </View>
 
           <View style={{ flexDirection: 'row', }}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={() => props.navigation.navigate('Posts')}
+              >
               <Text style={styles.text}>
                 Posts
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={() => props.navigation.navigate('Map')}
+              >
               <Text style={styles.text}>
                 Map
               </Text>
@@ -71,8 +76,6 @@ const Home = () => {
     </SafeAreaView>
   )
 }
-
-export default Home;
 
 const styles = StyleSheet.create({
   text: {
@@ -90,4 +93,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(28, 89, 96, .7)',
     zIndex: 1
   }
-})
+});
+
+export default Home;

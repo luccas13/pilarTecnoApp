@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { HomeStackScreen } from './HomeStack';
 import { ProfileStackScreen } from './ProfileStack';

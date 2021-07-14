@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Posts from '../screens/Posts';
 import PostDetail from '../screens/PostDetail';
 import PostEdit from '../screens/PostEdit';

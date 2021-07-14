@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     SafeAreaView,
     View,
@@ -7,8 +7,7 @@ import {
     StyleSheet,
 } from 'react-native';
 
-const height = Dimensions.get('window').height
-const width = Dimensions.get('window').width
+const { height, width } = Dimensions.get('window');
 
 const Map = () => {
     return (
@@ -26,8 +25,6 @@ const Map = () => {
     </SafeAreaView>
     );
 }
- 
-export default Map;
 
 const styles = StyleSheet.create({
     text: {
@@ -45,4 +42,6 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(28, 89, 96, .7)',
       zIndex: 1
     }
-  })
+});
+ 
+export default Map;

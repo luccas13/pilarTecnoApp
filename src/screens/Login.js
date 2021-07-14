@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     SafeAreaView,
-    View,
-    Text,
-    TouchableOpacity,
     ImageBackground,
     Dimensions,
-    StyleSheet,
 } from 'react-native';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
@@ -73,21 +69,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((Login));
-
-// const styles = StyleSheet.create({
-//     text: {
-//         fontSize: 30,
-//         fontWeight: 'bold',
-//         color: '#fff',
-//         textAlign: 'center'
-//     },
-//     box: {
-//         margin: width / 20,
-//         height: width / 2.5,
-//         width: width / 2.5,
-//         borderRadius: 15,
-//         justifyContent: 'center',
-//         backgroundColor: 'rgba(28, 89, 96, .7)',
-//         zIndex: 1
-//     }
-// });
