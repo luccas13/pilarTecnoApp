@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, navigationRef } from 'react';
+import React, { useState, useEffect, navigationRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import { useDispatch, Provider } from 'react-redux';
@@ -20,11 +20,14 @@ const App = (props) => {
       }
       if (initializing) setInitializing(false);
     }
+
     useEffect(() => {
       const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
       return subscriber; // unsubscribe on unmount
     }, []);
+
     if (initializing) { return null; }
+
     return (
       <NavigationContainer ref={navigationRef}>
         <AppStack />

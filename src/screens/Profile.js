@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Text,
     View,
+    ImageBackground,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Avatar, Button } from 'react-native-elements';
@@ -19,7 +20,7 @@ const Profile = props => {
     const [email, setEmail] = useState('');
     const [photoURL, setPhotoURL] = useState('');
     const [name, setName] = useState('');
-
+    console.log(`Inicio: ${JSON.stringify(props.user)}`);
     useEffect(() => {
         const { user } = props;
         console.log('user profile: ' + JSON.stringify(user));
@@ -30,35 +31,48 @@ const Profile = props => {
 
     return (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <View style={styles.content}>
-                <View style={{ alignItems: 'center' }}>
-                    <Avatar
-                        rounded
-                        source={{ uri: photoURL }}
-                        size='xlarge'
-                    />
-                    <View style={styles.dataContainer}>
-                        <Text style={styles.infoText}>{email}</Text>
-                        <Text style={styles.infoText}>{name}</Text>
+            <ImageBackground
+                style={{ height }}
+                source={require('../assets/images/background.jpg')}
+            >
+                <View style={styles.content}>
+                    <View style={{ alignItems: 'center' }}>
+                        {photoURL ?
+                            <Avatar
+                                rounded
+                                source={{ uri: photoURL }}
+                                size='xlarge'
+                            />
+                            : 
+                            <></>
+                        }
+                        <View style={styles.dataContainer}>
+                            <Text style={styles.infoText}>{email}</Text>
+                            <Text style={styles.infoText}>{name}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={{ flex: 1, top: 50, width: width * 0.5 }}>
-                <Button title='Exit' onPress={() => {
-                    auth()
-                        .signOut()
-                        .then(async () => {
-                            console.log('User signed out!'),
-                                props.setUser({ user: null })
-                            try {
-                                await AsyncStorage.delItem('isloged')
-                            } catch (e) {
-                                console.log('There was a error:' + e)
-                            }
-                        })
-                        .catch(err => console.log(err));
-                }} />
-            </View>
+                <View style={{ flex: 1, top: 50, width, paddingLeft: width/5, paddingRight: width/5 }}>
+                    <Button
+                        title='Exit' 
+                        onPress={() => {
+                        auth()
+                            .signOut()
+                            .then(async () => {
+                                console.log('User signed out!'),
+                                    props.setUser({ user: null })
+                                try {
+                                    await AsyncStorage.removeItem('isloged');
+                                    // await AsyncStorage.delItem('isloged');
+                                }
+                                catch (e) {
+                                    console.log('There was a error:' + e)
+                                }
+                            })
+                            .catch(err => console.log(err));
+                    }} />
+                </View>
+            </ImageBackground>
         </SafeAreaView>
     )
 }
@@ -81,7 +95,7 @@ const styles = StyleSheet.create({
     infoText: {
         textAlign: 'center',
         fontSize: 18,
-        color: 'grey'
+        color: '#fff'
     }
 });
 
