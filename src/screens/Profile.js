@@ -12,7 +12,6 @@ import { Avatar, Button } from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { actions } from '../store';
-import userIcon from '../assets/images/avatar.png';
 
 const { height, width } = Dimensions.get('window');
 
