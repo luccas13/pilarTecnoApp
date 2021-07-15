@@ -10,16 +10,6 @@ import {
     Dimensions,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-// import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
-// import auth from '@react-native-firebase/auth';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { connect } from 'react-redux';
-// import { actions } from '../store';
-
-// GoogleSignin.configure({
-//     webClientId: '696191771941-k73fbhk2k9sbbmlf7d7jrlkcn8p42n96.apps.googleusercontent.com',
-// });
 
 const { height, width } = Dimensions.get('window');
 
@@ -27,6 +17,7 @@ const NewAccount = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
 
     return (
         <SafeAreaView>
@@ -55,32 +46,46 @@ const NewAccount = (props) => {
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)}
                 />
+                <TextInput
+                    style={style.input}
+                    value={password2}
+                    placeholder='Confirm Password'
+                    placeholderTextColor='rgba(255, 255, 255, .35)'
+                    secureTextEntry={true}
+                    onChangeText={(e) => setPassword2(e)}
+                />
                 <TouchableOpacity
                     style={style.button}
                     onPress={ () => {
-                        auth()
-                            .createUserWithEmailAndPassword(email, password)
-                            .then(() => {
-                                console.log('User account created & signed in!');
-                                Alert.alert('User account created & signed in!');
-                                props.navigation.navigate('LogIn');
-                            })
-                            .catch(error => {
-                                if (error.code === 'auth/email-already-in-use') {
-                                    console.log('That email address is already in use!');
-                                }
-                                if (error.code === 'auth/invalid-email') {
-                                    console.log('That email address is invalid!');
-                                }
-                                console.error(error);
-                            });
+                        password2 === password ?
+                            auth()
+                                .createUserWithEmailAndPassword(email, password)
+                                .then(() => {
+                                    console.log('User account created & signed in!');
+                                    Alert.alert('User account created & signed in!');
+                                    props.navigation.navigate('LogIn');
+                                })
+                                .catch(error => {
+                                    if (error.code === 'auth/email-already-in-use') {
+                                        Alert.alert('That email address is already in use!');
+                                    }
+                                    if (error.code === 'auth/invalid-email') {
+                                        Alert.alert('That email address is invalid!');
+                                    }
+                                    console.error(error);
+                                })
+                        : Alert.alert('Passwords not coincide'); 
+                        setPassword('');
+                        setPassword2('');
+                                
+                            
                     }}
                 >
                 <Text style={style.text} >Create Account</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={style.button}
-                    onPress={ () => props.navigation.navigate('LogIn')}
+                    onPress={ () => props.navigation.goBack()}
                 >
                 <Text style={style.text} >Back Login</Text>
                 </TouchableOpacity>
@@ -120,13 +125,4 @@ const style = StyleSheet.create({
     }
 });
 
-const mapDispatchToProps = dispatch => ({
-    setUser: (data) =>
-        dispatch(actions.user.setUser(data)),
-});
-
-const mapStateToProps = state => ({
-    user: state.user.user
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)((NewAccount));
+export default NewAccount;

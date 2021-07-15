@@ -12,6 +12,7 @@ import { Avatar, Button } from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { actions } from '../store';
+import userIcon from '../assets/images/avatar.png';
 
 const { height, width } = Dimensions.get('window');
 
@@ -44,11 +45,20 @@ const Profile = props => {
                                 size='xlarge'
                             />
                             : 
-                            <></>
+                            <Avatar
+                                rounded
+                                source={require('../assets/images/avatar.png')}
+                                size='xlarge'
+                            />
                         }
                         <View style={styles.dataContainer}>
                             <Text style={styles.infoText}>{email}</Text>
-                            <Text style={styles.infoText}>{name}</Text>
+                            {
+                                name ?
+                                    <Text style={styles.infoText}>{name}</Text>
+                                : 
+                                    <Text style={styles.infoText}>Username</Text>
+                            }
                         </View>
                     </View>
                 </View>
