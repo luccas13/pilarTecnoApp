@@ -61,8 +61,8 @@ const NewAccount = (props) => {
                             auth()
                                 .createUserWithEmailAndPassword(email, password)
                                 .then(() => {
-                                    console.log('User account created & signed in!');
-                                    Alert.alert('User account created & signed in!');
+                                    console.log('User account created.');
+                                    Alert.alert('User account created.');
                                     props.navigation.navigate('LogIn');
                                 })
                                 .catch(error => {

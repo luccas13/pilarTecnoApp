@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { connect } from 'react-redux';
 import { actions } from '../store';
+import { Alert } from 'react-native';
 
 GoogleSignin.configure({
     webClientId: '696191771941-k73fbhk2k9sbbmlf7d7jrlkcn8p42n96.apps.googleusercontent.com',
@@ -66,22 +67,25 @@ const Login = (props) => {
                 <TouchableOpacity
                     style={style.button}
                     onPress={() => { 
-                        auth().signInWithEmailAndPassword(email, password)
-                        .then(async data => {
-                          console.log('Signed in with e-mail!');                    
-                          if (data) {
-                            console.log('res login: ' + JSON.stringify(data.user));
-                            try {
-                              await AsyncStorage.setItem(
-                                'isloged',
-                                JSON.stringify(data.user),
-                              );
-                            } catch (e) {
-                              console.log('There was a error:' + e);
+                        email & password ?
+                            auth().signInWithEmailAndPassword(email, password)
+                            .then(async data => {
+                            console.log('Signed in with e-mail!');                    
+                            if (data) {
+                                console.log('res login: ' + JSON.stringify(data.user));
+                                try {
+                                await AsyncStorage.setItem(
+                                    'isloged',
+                                    JSON.stringify(data.user),
+                                );
+                                } catch (e) {
+                                console.log('There was a error:' + e);
+                                }
+                                props.setUser(data.user);
                             }
-                            props.setUser(data.user);
-                          }
-                        }).catch (err => {console.log(err)})
+                            }).catch (err => {console.log(err)})
+                        : 
+                            Alert.alert('Complete all fields');
                     }}
                 >
                     <Text style={style.text} >Sign In</Text>
