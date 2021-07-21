@@ -50,7 +50,7 @@ const Posts = (props) => {
     props.posts ? console.log(props.posts.length) : console.log('lista vacia');
     return (
         <SafeAreaView style={{
-            flex: 1, justifyContent: 'center', alignItems: 'center',
+            justifyContent: 'center', alignItems: 'center',
             backgroundColor: 'white'
         }}>
             {
@@ -58,7 +58,7 @@ const Posts = (props) => {
                     <ActivityIndicator />
                     :
                     <ImageBackground
-                        style={{ height, width, paddingTop: height / 9 }}
+                        style={{ height, width, paddingTop: height / 7 }}
                         source={require('../assets/images/background.jpg')}
                     >
                         <View style={{ flex: 1 }}>

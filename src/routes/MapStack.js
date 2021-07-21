@@ -1,6 +1,8 @@
 import React from 'react';
-import Map from '../screens/Map';
+import { StyleSheet } from 'react-native';
+import { BlurView } from 'expo-blur';
 import { createStackNavigator } from '@react-navigation/stack';
+import Map from '../screens/Map';
 
 const MapStack = createStackNavigator();
 
@@ -12,13 +14,13 @@ export const MapStackScreen = () => {
             component={Map} 
             options={{
                 title: 'Map',
-                headerStyle: {
-                    backgroundColor: `rgba( 19, 25, 29, .8)`,
-                },
                 headerTintColor: 'rgb(118, 177, 195)',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
+                headerTransparent: true,
+                headerBackground: () => 
+                    <BlurView tint="dark" intensity={100} style={StyleSheet.absoluteFill} />
             }}
             />
         </MapStack.Navigator>

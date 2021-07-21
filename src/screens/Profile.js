@@ -30,7 +30,7 @@ const Profile = props => {
     }, []);
 
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <SafeAreaView style={{ justifyContent: 'center', alignItems: 'center' }}>
             <ImageBackground
                 style={{ height }}
                 source={require('../assets/images/background.jpg')}
@@ -61,7 +61,7 @@ const Profile = props => {
                         </View>
                     </View>
                 </View>
-                <View style={{ flex: 1, top: 50, width, paddingLeft: width/5, paddingRight: width/5 }}>
+                <View style={{ flex: 1, top: 75, width, paddingLeft: width/5, paddingRight: width/5 }}>
                     <Button
                         title='Exit' 
                         onPress={() => {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        top: 50,
+        top: 75,
         justifyContent: 'center',
     },
     dataContainer: {

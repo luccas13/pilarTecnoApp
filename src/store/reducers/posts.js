@@ -19,18 +19,17 @@ export default (state = initialState, action) => {
         };
     }
     if (action.type === UPDATE_POSTS) {
+        // console.log(`-------Reducer data = ${JSON.stringify(action.data)}`)
         update = state.posts.map((post) => {
-            if (post.id === action.data.id) {
-                return {
-                    data,
-                }
+            if (post.id == action.data.id) {
+                return action.data
             }
             return post
-        })
+        });
+        // console.log('UPDATE = ' + JSON.stringify(update[0]));
         return {
-            ...state,
-            post: update
-        }
+            posts: update.reverse()
+        };
     }
     if (action.type === DEL_POSTS) {
         update = state.posts.filter(post => post.id !== action.data.id);

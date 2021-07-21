@@ -17,19 +17,19 @@ const PostCreate = (props) =>  {
     const [body, setBody] = useState('');
 
     const send = () => {
-        ///VALIDACIONES
+        ///VALIDATIONS
         props.createPost({ title, body }).then(() => {
             props.navigation.goBack();
         });
     }
         return (
-            <SafeAreaView style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <SafeAreaView>
                 <ImageBackground
-                    style={[styles.content, { height, width }]}
+                    style={styles.content}
                     source={require('../assets/images/background.jpg')}
                 >
                     <Input
-                        placeholder='Titulo'
+                        placeholder='Title'
                         inputContainerStyle={{
                             width: width * 0.8, alignItems: 'flex-start',
                             alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
@@ -40,7 +40,7 @@ const PostCreate = (props) =>  {
                         onChangeText={(value) => setTitle(value)}
                     />
                     <Input
-                        placeholder='Descripcion'
+                        placeholder='Description'
                         inputContainerStyle={{
                             width: width * 0.8, alignItems: 'flex-start',
                             alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
@@ -53,7 +53,7 @@ const PostCreate = (props) =>  {
                         multiline
                         numberOfLines={2}
                     />
-                    <Button title='Postear' onPress={() => send()}
+                    <Button title='Post' onPress={() => send()}
                         style={{ width: width * 0.8 }} />
                 </ImageBackground>
             </SafeAreaView>
@@ -67,9 +67,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     content: {
-        margin: width / 20,
-        height: width / 2.5,
-        width: width / 2.5,
+        height,
+        width,
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center'

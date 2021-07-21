@@ -1,6 +1,8 @@
 import React from 'react';
-import Home from '../screens/Home';
+import { StyleSheet } from 'react-native';
+import { BlurView } from 'expo-blur';
 import { createStackNavigator } from '@react-navigation/stack';
+import Home from '../screens/Home';
 
 const HomeStack = createStackNavigator();
 
@@ -12,13 +14,13 @@ export const HomeStackScreen = () => {
             component={Home} 
             options={{
                 title: 'Home',
-                headerStyle: {
-                    backgroundColor: `rgba( 19, 25, 29, .8)`,
-                },
                 headerTintColor: 'rgb(118, 177, 195)',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                 },
+                headerTransparent: true,
+                headerBackground: () => 
+                    <BlurView tint="dark" intensity={100} style={StyleSheet.absoluteFill} />
             }}
             />
         </HomeStack.Navigator>

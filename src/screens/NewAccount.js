@@ -19,6 +19,31 @@ const NewAccount = (props) => {
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
 
+    const createAcount = () => {
+        if (email & password & password2) {
+            password2 === password ?
+            auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    console.log('User account created.');
+                    Alert.alert('User account created.');
+                    props.navigation.navigate('LogIn');
+                })
+                .catch(error => {
+                    if (error.code === 'auth/email-already-in-use') {
+                        Alert.alert('That email address is already in use!');
+                    }
+                    if (error.code === 'auth/invalid-email') {
+                        Alert.alert('That email address is invalid!');
+                    }
+                    console.error(error);
+                })
+            : Alert.alert('Passwords not coincide');
+            setPassword('');
+            setPassword2('');
+        } else {Alert.alert('Complete all fields');}
+    }
+
     return (
         <SafeAreaView>
             <ImageBackground
@@ -56,38 +81,15 @@ const NewAccount = (props) => {
                 />
                 <TouchableOpacity
                     style={style.button}
-                    onPress={ () => {
-                        password2 === password ?
-                            auth()
-                                .createUserWithEmailAndPassword(email, password)
-                                .then(() => {
-                                    console.log('User account created.');
-                                    Alert.alert('User account created.');
-                                    props.navigation.navigate('LogIn');
-                                })
-                                .catch(error => {
-                                    if (error.code === 'auth/email-already-in-use') {
-                                        Alert.alert('That email address is already in use!');
-                                    }
-                                    if (error.code === 'auth/invalid-email') {
-                                        Alert.alert('That email address is invalid!');
-                                    }
-                                    console.error(error);
-                                })
-                        : Alert.alert('Passwords not coincide'); 
-                        setPassword('');
-                        setPassword2('');
-                                
-                            
-                    }}
+                    onPress={() => createAcount()}
                 >
-                <Text style={style.text} >Create Account</Text>
+                    <Text style={style.text} >Create Account</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={style.button}
-                    onPress={ () => props.navigation.goBack()}
+                    onPress={() => props.navigation.goBack()}
                 >
-                <Text style={style.text} >Back Login</Text>
+                    <Text style={style.text} >Back Login</Text>
                 </TouchableOpacity>
             </ImageBackground>
         </SafeAreaView >

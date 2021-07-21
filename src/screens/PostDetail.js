@@ -52,6 +52,7 @@ const PostDetail = (props) => {
                     <View style={{width: width/3, marginHorizontal: 10}} >
                         <Button
                             title='Edit'
+                            onPress={() => props.navigation.navigate('PostEdit', {item})}
                         />
                     </View>
                     <View style={{width: width/3, marginHorizontal: 10}} >
