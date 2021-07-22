@@ -28,7 +28,7 @@ const PostEdit = (props) => {
         ///VALIDATIONS
         const { id } = item;
         props.updatePost({ title, body, id }).then(() => {
-            props.navigation.goBack();
+            props.navigation.popToTop();
         });
     }
         return (
