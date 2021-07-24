@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState ,useEffect } from 'react';
 import {
     SafeAreaView,
     ImageBackground,
@@ -6,7 +6,10 @@ import {
     Text,
     Dimensions,
     StyleSheet,
+    ActivityIndicator,
+    FlatList,
 } from 'react-native';
+import { fetchComments } from '../api';
 import { connect } from 'react-redux';
 import { actions } from '../store';
 import { Divider, Button } from 'react-native-elements';
@@ -14,7 +17,18 @@ import { Divider, Button } from 'react-native-elements';
 const { height, width } = Dimensions.get('window');
 
 const PostDetail = (props) => {
+
+    const [comments, setcomments] = useState([]);
+
     const { item } = props.route.params;
+
+    useEffect(() => {
+        const {id} = item;
+        fetchComments({id}).then(res => {
+            // console.log(`-----------RESPONSE: ${JSON.stringify(res[1])}`);
+            setcomments(res[1]);
+        });
+    }, []);
 
     const delPost = () => {
         const {id} = item;
@@ -22,6 +36,32 @@ const PostDetail = (props) => {
             props.navigation.goBack();
         });
     }
+
+    const keyExtractor = (item, index) => index.toString();
+
+    const renderItem = ({ item }) => (
+        <View style={{
+            margin: 20, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 8,
+            padding: 5,
+        }}>
+            <View style={styles.titlecontainer}>
+                <Text style={styles.title}>
+                    {item.name}
+                </Text>
+            </View>
+            <View style={styles.bodycontainer}>
+                <Text style={styles.text}>
+                    {item.email}
+                </Text>
+            </View>
+            <View style={styles.bodycontainer}>
+                <Text style={styles.text}>
+                    {item.body}
+                </Text>
+            </View>
+            <Divider />
+        </View>
+    );
 
     return (
         <SafeAreaView>
@@ -33,7 +73,7 @@ const PostDetail = (props) => {
                 source={require('../assets/images/background.jpg')}
             >
                 <View style={{
-                    marginTop: height/4, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 8,
+                    marginTop: height/8, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 8,
                     padding: 5,
                 }}>
                     <View style={styles.titlecontainer}>
@@ -48,7 +88,7 @@ const PostDetail = (props) => {
                         </Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', marginVertical: 30}} >
+                <View style={{flexDirection:'row', marginVertical: 10}} >
                     <View style={{width: width/3, marginHorizontal: 10}} >
                         <Button
                             title='Edit'
@@ -62,6 +102,19 @@ const PostDetail = (props) => {
                         />    
                     </View>
                 </View>
+                {
+                !comments ?
+                    <ActivityIndicator />
+                    :
+                    <View style={{ flex: 1 }}>
+                        <FlatList
+                            style={{ marginBottom: 50 }}
+                            keyExtractor={keyExtractor}
+                            data={comments}
+                            renderItem={renderItem}
+                        />
+                    </View>
+            }
             </ImageBackground>
         </SafeAreaView>
     );

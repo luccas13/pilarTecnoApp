@@ -47,7 +47,7 @@ const Posts = (props) => {
             </View>
         </TouchableWithoutFeedback>
     );
-    props.posts ? console.log(props.posts.length) : console.log('lista vacia');
+    props.posts ? console.log(props.posts.length) : console.log('empty list.');
     return (
         <SafeAreaView style={{
             justifyContent: 'center', alignItems: 'center',

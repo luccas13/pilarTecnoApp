@@ -11,7 +11,7 @@ export const fetchComments = ({ id }) => {
     return fetch(`${BASE_URL}posts/${id}/comments`)
         .then(Response => {
             return Promise.all([Response, Response.json()]);
-        })
+        });
 }
 ///CREATE POST
 export const postPosts = ({ title, body }) => {
