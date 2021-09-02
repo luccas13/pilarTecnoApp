@@ -13,7 +13,7 @@ export const MapStackScreen = () => {
             name="Map" 
             component={Map} 
             options={{
-                title: 'Map',
+                title: 'Mapa',
                 headerTintColor: 'rgb(118, 177, 195)',
                 headerTitleStyle: {
                     fontWeight: 'bold',

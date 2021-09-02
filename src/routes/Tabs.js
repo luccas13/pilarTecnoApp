@@ -38,6 +38,7 @@ export const Tabs = () => {
             />
             <Tab.Screen name="Posts" component={PostsStackScreen}
                 options={{
+                    title: "Puestos",
                     tabBarIcon: ({ color }) => (
                         <Icon name={'marker'} type="font-awesome-5" size={20} color={color} />
                     ),

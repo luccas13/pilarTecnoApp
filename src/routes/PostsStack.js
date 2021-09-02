@@ -16,7 +16,7 @@ export const PostsStackScreen = () => {
                 name="Posts"
                 component={Posts} 
                 options={{
-                    title: 'Posts',
+                    title: 'Puestos',
                     headerTintColor: 'rgb(118, 177, 195)',
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -30,7 +30,7 @@ export const PostsStackScreen = () => {
                 name="PostDetail" 
                 component={PostDetail}
                 options={{
-                    title: 'Post Detail',
+                    title: 'Detalles',
                     headerTintColor: 'rgb(118, 177, 195)',
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -44,7 +44,7 @@ export const PostsStackScreen = () => {
                 name="PostEdit" 
                 component={PostEdit}
                 options={{
-                    title: 'Post Edit',
+                    title: 'Editar Puesto',
                     headerTintColor: 'rgb(118, 177, 195)',
                     headerTitleStyle: {
                         fontWeight: 'bold',
@@ -58,7 +58,7 @@ export const PostsStackScreen = () => {
                 name="PostCreate" 
                 component={PostCreate} 
                 options={{
-                    title: 'Post Create',
+                    title: 'Crear Puesto',
                     headerTintColor: 'rgb(118, 177, 195)',
                     headerTitleStyle: {
                         fontWeight: 'bold',

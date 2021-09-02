@@ -13,7 +13,7 @@ export const ProfileStackScreen = () => {
             name="Profile" 
             component={Profile} 
             options={{
-                title: 'Profile',
+                title: 'Perfil',
                 headerTintColor: 'rgb(118, 177, 195)',
                 headerTitleStyle: {
                     fontWeight: 'bold',
