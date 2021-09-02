@@ -39,11 +39,10 @@ export const getPosts = () => (dispatch) => {
 }
 
 export const createPost = (data) => (dispatch) => {
-    const { title, body } = data;
     return postPosts(data)
         .then(([response, json]) => {
             if (response.ok === true) {
-                dispatch(createPostSuceess({ title, body }));
+                dispatch(createPostSuceess({...data}));
             }
             return json;
         })
@@ -51,8 +50,8 @@ export const createPost = (data) => (dispatch) => {
 }
 
 export const delPost = (data) => (dispatch) => {
-    const { id } = data;
-    return deletePost({ id })
+    const { _id } = data;
+    return deletePost({ _id })
         .then(([response, json]) => {
             if (response.ok === true) {
                 dispatch(delPostSuceess(data));
@@ -63,7 +62,6 @@ export const delPost = (data) => (dispatch) => {
 }
 
 export const updatePost = (data) => (dispatch) => {
-    // console.log(`----- Actions updatePost data = ${JSON.stringify(data)}`);
     return putPost(data)
         .then(([response, json]) => {
             if (response.ok === true) {

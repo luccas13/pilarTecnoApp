@@ -1,81 +1,59 @@
-const BASE_URL = 'https://jsonplaceholder.typicode.com/'
-///LIST POSTS
+const BASE_URL = 'https://api-vaccination-centers.herokuapp.com';
+
+///LIST PLACES
 export const fetchPosts = () => {
-    return fetch(BASE_URL + 'posts')
+    return fetch(`${BASE_URL}/places`)
         .then(Response => {
             return Promise.all([Response, Response.json()])
         });
 }
-///LIST COMMENTS'S POST
-export const fetchComments = ({ id }) => {
-    return fetch(`${BASE_URL}posts/${id}/comments`)
-        .then(Response => {
-            return Promise.all([Response, Response.json()]);
-        });
-}
 ///CREATE POST
-export const postPosts = ({ title, body }) => {
-    return fetch(BASE_URL + 'posts', {
+export const postPosts = (data) => {
+    return fetch(`${BASE_URL}/places`, {
         method: 'POST',
-        body: JSON.stringify({
-            title,
-            body,
-            userId: 1,
-        }),
+        body: JSON.stringify({...data}),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
     })
         .then(Response => {
-            console.log('json create: ' + JSON.stringify(Response))
             return Promise.all([Response, Response.json()])
         });
 }
 ///EDIT POST
-export const putPost = ({ title, body, id }) => {
-    return fetch(`${BASE_URL}posts/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-            id,
-            title,
-            body,
-            userId: 1,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
+export const putPost = ({_id, name, address, latitude, longitude, url}) => {
+    console.log(`${BASE_URL}/places/${_id}`);
+    console.log(JSON.stringify({
+        name,
+        address,
+        latitude,
+        longitude,
+        url,
+    }))
+    return fetch(`${BASE_URL}/places/${_id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+        name,
+        address,
+        latitude,
+        longitude,
+        url,
+    }),
+    headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+    },
     })
-        .then(Response => {
-            console.log('json create: ' + JSON.stringify(Response))
-            return Promise.all([Response, Response.json()])
-        });
+    .then(Response =>{
+        console.log(Response);
+    return Promise.all([Response, Response.text()])
+    })
 }
 ///DELETE POST
-export const deletePost = ({ id }) => {
-    return fetch(`${BASE_URL}posts/${id}`, {
+export const deletePost = ({ _id }) => {
+    return fetch(`${BASE_URL}/places/${_id}`, {
         method: 'DELETE'
     })
         .then(Response => {
-            console.log('json create: ' + JSON.stringify(Response))
-            return Promise.all([Response, Response.json()])
-        });
-}
-///SHOW POST
-export const showPost = ({ title, body, id }) => {
-    return fetch(`${BASE_URL}posts/${id}${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-            id,
-            title,
-            body,
-            userId: 1,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then(Response => {
-            console.log('json create: ' + JSON.stringify(Response))
             return Promise.all([Response, Response.json()])
         });
 }

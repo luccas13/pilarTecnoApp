@@ -57,7 +57,7 @@ const Home = (props) => {
               onPress={() => props.navigation.navigate('Posts')}
               >
               <Text style={styles.text}>
-                Posts
+                Puesto
               </Text>
             </TouchableOpacity>
 
@@ -66,7 +66,7 @@ const Home = (props) => {
               onPress={() => props.navigation.navigate('Map')}
               >
               <Text style={styles.text}>
-                Map
+                Mapa
               </Text>
             </TouchableOpacity>
           </View>

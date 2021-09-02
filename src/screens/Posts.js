@@ -18,8 +18,6 @@ const { height, width } = Dimensions.get('window');
 
 const Posts = (props) => {
 
-    const [posts, setPosts] = useState(null);
-
     useEffect(() => {
         props.getPosts();
     }, []);
@@ -35,13 +33,13 @@ const Posts = (props) => {
             }}>
                 <View style={styles.titlecontainer}>
                     <Text style={styles.title}>
-                        {item.title}
+                        {item.name}
                     </Text>
                 </View>
                 <Divider />
                 <View style={styles.bodycontainer}>
                     <Text style={styles.text}>
-                        {item.body}
+                        {item.address}
                     </Text>
                 </View>
             </View>
@@ -62,7 +60,7 @@ const Posts = (props) => {
                         source={require('../assets/images/background.jpg')}
                     >
                         <View style={{ flex: 1 }}>
-                            <Button title='Create a New Post'
+                            <Button title='Crear Puesto'
                                 onPress={() => props.navigation.navigate('PostCreate')} />
                             <FlatList
                                 style={{ marginBottom: 50 }}

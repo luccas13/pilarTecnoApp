@@ -13,26 +13,27 @@ export default (state = initialState, action) => {
         return {
             ...state,
             posts: [...state.posts, {
-                userId: 1, title: action.data.title,
-                body: action.data.body
+                name: action.data.name,
+                address: action.data.address,
+                longitude: action.data.longitude,
+                latitude: action.data.latitude,
+                url: action.data.url,
             }],
         };
     }
     if (action.type === UPDATE_POSTS) {
-        // console.log(`-------Reducer data = ${JSON.stringify(action.data)}`)
         update = state.posts.map((post) => {
-            if (post.id == action.data.id) {
+            if (post._id == action.data._id) {
                 return action.data
             }
             return post
         });
-        // console.log('UPDATE = ' + JSON.stringify(update[0]));
         return {
             posts: update.reverse()
         };
     }
     if (action.type === DEL_POSTS) {
-        update = state.posts.filter(post => post.id !== action.data.id);
+        update = state.posts.filter(post => post._id !== action.data._id);
         return {
             posts: update.reverse()
         };

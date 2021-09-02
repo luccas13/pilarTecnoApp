@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react';
+import React from 'react';
 import {
     SafeAreaView,
     ImageBackground,
@@ -6,10 +6,8 @@ import {
     Text,
     Dimensions,
     StyleSheet,
-    ActivityIndicator,
-    FlatList,
+    Linking
 } from 'react-native';
-import { fetchComments } from '../api';
 import { connect } from 'react-redux';
 import { actions } from '../store';
 import { Divider, Button } from 'react-native-elements';
@@ -18,50 +16,25 @@ const { height, width } = Dimensions.get('window');
 
 const PostDetail = (props) => {
 
-    const [comments, setcomments] = useState([]);
-
     const { item } = props.route.params;
 
-    useEffect(() => {
-        const {id} = item;
-        fetchComments({id}).then(res => {
-            // console.log(`-----------RESPONSE: ${JSON.stringify(res[1])}`);
-            setcomments(res[1]);
-        });
-    }, []);
-
     const delPost = () => {
-        const {id} = item;
-        props.delPost({id}).then(res => {
+        const {_id} = item;
+        props.delPost({_id}).then(res => {
             props.navigation.goBack();
         });
     }
-
-    const keyExtractor = (item, index) => index.toString();
-
-    const renderItem = ({ item }) => (
-        <View style={{
-            margin: 20, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 8,
-            padding: 5,
-        }}>
-            <View style={styles.titlecontainer}>
-                <Text style={styles.title}>
-                    {item.name}
-                </Text>
-            </View>
-            <View style={styles.bodycontainer}>
-                <Text style={styles.text}>
-                    {item.email}
-                </Text>
-            </View>
-            <View style={styles.bodycontainer}>
-                <Text style={styles.text}>
-                    {item.body}
-                </Text>
-            </View>
-            <Divider />
-        </View>
-    );
+    
+    const linkToMap = (latitude, longitude, name) => {
+        const scheme = Platform.select({
+          ios: 'maps:',
+          android: 'geo:',
+        });
+        const position = `${latitude}, ${longitude}`;
+        const label = name;
+        const urlMap = `${scheme}${position}?q=${label}`;
+        Linking.openURL(urlMap);
+    }
 
     return (
         <SafeAreaView>
@@ -78,13 +51,23 @@ const PostDetail = (props) => {
                 }}>
                     <View style={styles.titlecontainer}>
                         <Text style={styles.title}>
-                            {item.title}
+                            {item.name}
                         </Text>
                     </View>
                     <Divider />
                     <View style={styles.bodycontainer}>
                         <Text style={styles.text}>
-                            {item.body}
+                            {`dirección: ${item.address}`}
+                        </Text>
+                    </View>
+                    <View style={styles.bodycontainer}>
+                        <Text style={styles.text}>
+                            {`latitud: ${item.latitude}`}
+                        </Text>
+                    </View>
+                    <View style={styles.bodycontainer}>
+                        <Text style={styles.text}>
+                            {`longitud: ${item.longitude}`}
                         </Text>
                     </View>
                 </View>
@@ -101,20 +84,13 @@ const PostDetail = (props) => {
                             onPress={() => delPost()}
                         />    
                     </View>
-                </View>
-                {
-                !comments ?
-                    <ActivityIndicator />
-                    :
-                    <View style={{ flex: 1 }}>
-                        <FlatList
-                            style={{ marginBottom: 50 }}
-                            keyExtractor={keyExtractor}
-                            data={comments}
-                            renderItem={renderItem}
-                        />
+                    <View style={{width: width/3, marginHorizontal: 10}} >
+                        <Button
+                            title='Mapa'
+                            onPress={() => linkToMap(item.latitude, item.longitude, item.name)}
+                        />    
                     </View>
-            }
+                </View>
             </ImageBackground>
         </SafeAreaView>
     );

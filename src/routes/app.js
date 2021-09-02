@@ -14,7 +14,8 @@ export default AppStack = (props) => {
                 user ? (
                     <Stack.Screen name="AppStack" component={Tabs} />
                 ) : (
-                    <Stack.Screen name="AccountStack" component={AccountStack} />
+                    <Stack.Screen name="AppStack" component={Tabs} />
+                    // <Stack.Screen name="AccountStack" component={AccountStack} />
                 )
             }
         </Stack.Navigator>

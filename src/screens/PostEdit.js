@@ -14,20 +14,25 @@ const { height, width } = Dimensions.get('window');
 const PostEdit = (props) => {
 
     const { item } = props.route.params;
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [url, setUrl] = useState('');
 
     useEffect(() => {
         if (item) {
-            setTitle(item.title);
-            setBody(item.body);
+            setName(item.name);
+            setAddress(item.address);
+            setLatitude(item.latitude);
+            setLongitude(item.longitude);
+            setUrl(item.url);
         }
     }, [item]);
 
     const update = () => {
-        ///VALIDATIONS
-        const { id } = item;
-        props.updatePost({ title, body, id }).then(() => {
+        const { _id } = item;
+        props.updatePost({ name, address, latitude, longitude, url, _id }).then(() => {
             props.navigation.popToTop();
         });
     }
@@ -38,31 +43,63 @@ const PostEdit = (props) => {
                     source={require('../assets/images/background.jpg')}
                 >
                     <Input
-                        placeholder='Title'
+                        placeholder='Nombre'
                         inputContainerStyle={{
                             width: width * 0.8, alignItems: 'flex-start',
                             alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
                         }}
                         inputStyle={{ color: 'white', marginLeft: 15 }}
                         placeholderTextColor='#ccc'
-                        value={title}
-                        onChangeText={(value) => setTitle(value)}
+                        value={name}
+                        onChangeText={(value) => setName(value)}
                     />
                     <Input
-                        placeholder='Description'
+                        placeholder='Dirección'
                         inputContainerStyle={{
                             width: width * 0.8, alignItems: 'flex-start',
-                            alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
-                            pading: 15
+                            alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
                         }}
                         inputStyle={{ color: 'white', marginLeft: 15 }}
                         placeholderTextColor='#ccc'
-                        value={body}
-                        onChangeText={(value) => setBody(value)}
-                        multiline
-                        numberOfLines={2}
+                        value={address}
+                        onChangeText={(value) => setAddress(value)}
                     />
-                    <Button title='Update' onPress={() => update()}
+                    <Input
+                        keyboardType='number-pad'
+                        placeholder='Latitud'
+                        inputContainerStyle={{
+                            width: width * 0.8, alignItems: 'flex-start',
+                            alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
+                        }}
+                        inputStyle={{ color: 'white', marginLeft: 15 }}
+                        placeholderTextColor='#ccc'
+                        value={latitude}
+                        onChangeText={(value) => setLatitude(value)}
+                    />
+                    <Input
+                        keyboardType='number-pad'
+                        placeholder='Longitud'
+                        inputContainerStyle={{
+                            width: width * 0.8, alignItems: 'flex-start',
+                            alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
+                        }}
+                        inputStyle={{ color: 'white', marginLeft: 15 }}
+                        placeholderTextColor='#ccc'
+                        value={longitude}
+                        onChangeText={(value) => setLongitude(value)}
+                    />
+                    <Input
+                        placeholder='URL de la Imagen'
+                        inputContainerStyle={{
+                            width: width * 0.8, alignItems: 'flex-start',
+                            alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
+                        }}
+                        inputStyle={{ color: 'white', marginLeft: 15 }}
+                        placeholderTextColor='#ccc'
+                        value={url}
+                        onChangeText={(value) => setUrl(value)}
+                    />
+                    <Button title='Actualziar' onPress={() => update()}
                         style={{ width: width * 0.8 }} />
                 </ImageBackground>
             </SafeAreaView>
